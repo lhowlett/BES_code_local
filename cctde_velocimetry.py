@@ -103,13 +103,11 @@ def calc_cctde_velocimetry(
         
         if calc_radial is True:
             eq_rad_chans_list = []
-            for eq_idx in range(len(cut_eq_times)):
+            for eq_idx in range(eq_idx1-1, eq_idx2+2):
                 # make an array of chosen radial channels for each reference 
                 # BES channel based on equilibrium
-                eq_timepoint = cut_eq_times[eq_idx]
-                equilib_idx = (np.abs(equilib_time - eq_timepoint)).argmin()
                 eq_rad_chans = calc_radial_chans_from_equilibrium(
-                    equilib_R, equilib_Z, equilib_psi[equilib_idx], apdpos)
+                    equilib_R, equilib_Z, equilib_psi[eq_idx], apdpos)
                 eq_rad_chans_list.append(eq_rad_chans)
             print("Radial channels chosen based on equilibrium values.")
             
@@ -1144,13 +1142,11 @@ def calc_cctde_velocimetry(
             results_dict["radial"] = {}
             
             eq_rad_chans_list = []
-            for eq_idx in range(len(cut_eq_times)):
+            for eq_idx in range(eq_idx1-1, eq_idx2+2):
                 # make an array of chosen radial channels for each reference BES 
                 # channel based on equilibrium
-                eq_timepoint = cut_eq_times[eq_idx]
-                equilib_idx = (np.abs(equilib_time - eq_timepoint)).argmin()
                 eq_rad_chans = calc_radial_chans_from_equilibrium(
-                    equilib_R, equilib_Z, equilib_psi[equilib_idx], apdpos)
+                    equilib_R, equilib_Z, equilib_psi[eq_idx], apdpos)
                 eq_rad_chans_list.append(eq_rad_chans)
             print("Radial channels chosen based on equilibrium values.")
             print("Calculating radial velocities...")
