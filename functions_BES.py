@@ -148,15 +148,12 @@ def get_plausible_velocities(row, column, velocities, correlations,
             
     return vels_ch, corrs_ch
 
-def map_channel_to_flux_surfaces(equilibria_xr, timepoint, apdpos, channel):
-    equilib_time = np.asarray(equilibria_xr.coords['time'])
-    equilib_R = np.asarray(equilibria_xr.coords['R'])
-    equilib_Z = np.asarray(equilibria_xr.coords['Z'])
-    equilibria = np.asarray(equilibria_xr)
-    
+def map_channel_to_flux_surfaces(
+        equilib_time, equilib_R, equilib_Z, equilib_psi, timepoint, apdpos, 
+        channel):
     equilib_idx = (np.abs(equilib_time - timepoint)).argmin()
     
-    equilib_interp = interp2d(equilib_R, equilib_Z, equilibria[equilib_idx], 
+    equilib_interp = interp2d(equilib_R, equilib_Z, equilib_psi[equilib_idx], 
                               bounds_error=False, fill_value=0.0)
     equilib_val = equilib_interp(apdpos[channel, 0], apdpos[channel, 1])
     
